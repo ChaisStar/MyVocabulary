@@ -14,30 +14,6 @@
             Margin="171,10,0,0"
             VerticalAlignment="Top"
             Command="{Binding TranslateCommand}"/>
-        <TextBox
-            HorizontalAlignment="Left"
-            Height="73"
-            Margin="10,10,0,0"
-            TextWrapping="Wrap"
-            VerticalAlignment="Top"
-            Width="156"
-            Text="{Binding StartWord}"/>
-        <TextBox
-            HorizontalAlignment="Left"
-            Height="73"
-            Margin="301,10,0,0"
-            TextWrapping="Wrap"
-            VerticalAlignment="Top"
-            Width="151"
-            Text ="{Binding TranslateWord, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox
-            HorizontalAlignment="Left"
-            Margin="16,86,0,0"
-            VerticalAlignment="Top"
-            Width="164"
-            ItemsSource="{Binding Languages}"
-            DisplayMemberPath="LanguageName"
-            SelectedItem="{Binding CurrentLanguage}"/>
         <Button
             Style="{StaticResource roundButtonTemplate}"
             Content="Add.."

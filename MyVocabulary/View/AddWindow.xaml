@@ -1,0 +1,32 @@
+﻿<Window x:Class="MyVocabulary.View.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyVocabulary.View"
+        mc:Ignorable="d"
+        Title="AddWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox Margin="5" Grid.Row="0" Text="{Binding StartWord, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Margin="5" Grid.Row="1" Text ="{Binding TranslateWord}"/>
+        <ComboBox
+            Grid.Row="2"
+            ItemsSource="{Binding Languages}"
+            DisplayMemberPath="LanguageName"
+            SelectedItem="{Binding CurrentLanguage}"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="5,5,2.5,5" Content="Save" Command="{Binding SaveCommand}"/>
+            <Button Grid.Column="1" Margin="2.5,5,5,5" Content="Cancel" Command="{Binding CloseCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

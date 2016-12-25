@@ -83,10 +83,21 @@
     <Compile Include="Model\TranslateEngines\YandexClasses\YandexResponse.cs" />
     <Compile Include="Model\TranslateEngines\YandexEngine.cs" />
     <Compile Include="Model\EntityFramework\VocabularyContext.cs" />
+    <Page Include="View\AddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ViewModel\AddWindowModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ViewShower.cs" />
+    <Compile Include="ViewModel\ViewShowerWindowTypes.cs" />
+    <Compile Include="View\AddWindow.xaml.cs">
+      <DependentUpon>AddWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -8,16 +8,18 @@ using MyVocabulary.Model.TranslateEngines;
 
 namespace MyVocabulary.ViewModel
 {
-    public class MainWindowModel : INotifyPropertyChanged
+    public class MainWindowModel : ViewModelBase
     {
         public MainWindowModel()
+        {
+            UpdateWords();
+        }
+
+        private void UpdateWords()
         {
             using (var context = new VocabularyContext())
             {
                 Words = new ObservableCollection<Word>(context.Words);
-                translator = new YandexEngine();
-                languages = translator.Languages;
-                currentLanguage = languages.FirstOrDefault(l => l.LanguageName == "Russian");
             }
         }
 
@@ -29,79 +31,14 @@ namespace MyVocabulary.ViewModel
             {
                 return addCommand ?? (addCommand = new RelayCommand(obj =>
                 {
-                    var word = new Word
+                    ViewShower.ShowDialog(ViewShowerWindowTypes.AddWindow, b =>
                     {
-                        StartWord = this.StartWord,
-                        TranslateWord = this.TranslateWord
-                    };
-                    Words.Add(word);
-                    currentWord = word;
-                }));
-            }
-        }
-
-        private RelayCommand translateCommand;
-        public RelayCommand TranslateCommand
-        {
-            get
-            {
-                return translateCommand ?? (translateCommand = new RelayCommand(obj =>
-                {
-                    TranslateWord = translator.TranslationResult(StartWord, currentLanguage);
+                        if (b == true) UpdateWords();
+                    });
                 }));
             }
         }
         #endregion RelayCommands
-
-        #region Translate
-
-        private ITranslateEngine translator;
-
-        private IEnumerable<ILanguage> languages;
-        public IEnumerable<ILanguage> Languages
-        {
-            get { return languages; }
-            set
-            {
-                languages = value;
-                OnPropertyChanged(nameof(Languages));
-            }
-        }
-
-        private ILanguage currentLanguage;
-        public ILanguage CurrentLanguage
-        {
-            get { return currentLanguage; }
-            set
-            {
-                currentLanguage = value;
-                OnPropertyChanged(nameof(CurrentLanguage));
-            }
-        }
-
-        private string startWord;
-        public string StartWord
-        {
-            get { return startWord; }
-            set
-            {
-                startWord = value;
-                OnPropertyChanged(nameof(StartWord));
-            }
-        }
-
-        private string translateWord;
-        public string TranslateWord
-        {
-            get { return translateWord; }
-            set
-            {
-                translateWord = value;
-                OnPropertyChanged(nameof(TranslateWord));
-            }
-        }
-
-        #endregion Translate
 
         #region Vocabulary
 
@@ -127,13 +64,5 @@ namespace MyVocabulary.ViewModel
             }
         }
         #endregion Vocabulary
-
-        #region INotifyPropertyChanged Realization
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string property) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
-        #endregion INotifyPropertyChanged Realization
     }
 }
